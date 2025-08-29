@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+  <div class="container py-5">
+    {% if is_delete %}
+      <h1>Подтверждение удаления</h1>
+      <p>Вы уверены, что хотите удалить пост "{{ post.title }}"?</p>
+      <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Удалить</button>
+        <a href="{% url 'blog:post_detail' pk=post.pk %}" class="btn btn-secondary">Отмена</a>
+      </form>
+    
+    {% else %}
+      <h1>{% if form.instance.pk %}Редактировать запись{% else %}Добавить запись{% endif %}</h1>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {% bootstrap_form form %} 
+        <button type="submit" class="btn btn-primary">
+          {% if form.instance.pk %}Сохранить{% else %}Добавить{% endif %}
+        </button>
+        
+        {% if form.instance.pk %}
+          <a href="{% url 'blog:delete_post' pk=form.instance.pk %}" class="btn btn-danger ms-2">Удалить</a>
+        {% endif %}
+      </form>
+    {% endif %}
+  </div>
+{% endblock %}
