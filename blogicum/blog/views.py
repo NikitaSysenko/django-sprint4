@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Page, Paginator
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
 from django.db.models import Count, QuerySet
 from django.http import (Http404, HttpRequest, HttpResponse,)
 from django.shortcuts import get_object_or_404, render
@@ -10,9 +10,10 @@ from django.shortcuts import redirect
 from django.utils import timezone
 from django.views.generic import DetailView, UpdateView
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import AbstractBaseUser
+
 from .models import Category, Comment, Post
 from .forms import CommentForm, PostForm
-from django.contrib.auth.models import AbstractBaseUser
 
 User = get_user_model()
 
@@ -106,7 +107,7 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
         return self.request.user
 
     def get_success_url(self):
-        return reverse_lazy('blog:profile',
+        return reverse('blog:profile',
                             kwargs={'username': self.request.user.username})
 
 
@@ -220,5 +221,5 @@ class CustomPasswordChangeView(PasswordChangeView):
     template_name = 'blog/password_change.html'
 
     def get_success_url(self):
-        return reverse_lazy('blog:profile',
+        return reverse('blog:profile',
                             kwargs={'username': self.request.user.username})

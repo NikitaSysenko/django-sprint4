@@ -1,7 +1,8 @@
 from django.urls import path
+
 from . import views
 from .views import (ProfileView, ProfileUpdateView, CustomPasswordChangeView)
-from django.urls import path
+
 app_name = 'blog'
 
 urlpatterns = [

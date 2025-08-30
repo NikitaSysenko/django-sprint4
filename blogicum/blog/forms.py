@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+
 from .models import Comment, Post
 
 
@@ -20,7 +21,13 @@ class PostForm(forms.ModelForm):
         fields = ['title', 'text', 'pub_date', 'image',
                   'location', 'category', 'is_published']
         widgets = {
-            'pub_date': forms.DateTimeInput(attrs={'type': 'datetime-local'}),
+            'pub_date': forms.DateTimeInput(
+                attrs={
+                    'type': 'datetime-local',
+                    'class': 'form-control'  # Добавляем класс для единообразия
+                },
+                format='%Y-%m-%dT%H:%M'  # Формат для datetime-local
+            ),
             'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
 

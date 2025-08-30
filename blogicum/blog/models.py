@@ -7,6 +7,7 @@ User = get_user_model()
 SLUG_MAX_LENGTH = 64
 NAME_MAX_LENGTH = 256
 TITLE_MAX_LENGTH = 256
+COMMENT_PREVIEW_LENGTH = 20
 
 
 class PublishedModel(models.Model):
@@ -26,6 +27,7 @@ class PublishedModel(models.Model):
 
     class Meta:
         abstract = True
+    """Нужны ли class Meta методы str для обстракной модели? """
 
 
 class Location(PublishedModel):
@@ -81,6 +83,7 @@ class PostQuerySet(models.QuerySet):
             pub_date__lte=timezone.now(),
             category__is_published=True
         ).order_by('-pub_date')
+    """Нужны ли class Meta методы str для  менеджерa запросов (QuerySet)? """
 
 
 class Post(PublishedModel):
@@ -156,4 +159,4 @@ class Comment(models.Model):
         ordering = ('created_at',)
 
     def __str__(self) -> str:
-        return self.text[:20]
+        return self.text[:COMMENT_PREVIEW_LENGTH]
