@@ -107,8 +107,9 @@ class ProfileUpdateView(LoginRequiredMixin, UpdateView):
         return self.request.user
 
     def get_success_url(self):
-        return reverse('blog:profile',
-                            kwargs={'username': self.request.user.username})
+        return reverse(
+            'blog:profile',
+            kwargs={'username': self.request.user.username})
 
 
 @login_required
@@ -221,5 +222,6 @@ class CustomPasswordChangeView(PasswordChangeView):
     template_name = 'blog/password_change.html'
 
     def get_success_url(self):
-        return reverse('blog:profile',
-                            kwargs={'username': self.request.user.username})
+        return reverse(
+            'blog:profile',
+            kwargs={'username': self.request.user.username})
