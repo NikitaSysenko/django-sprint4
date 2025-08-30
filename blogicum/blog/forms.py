@@ -24,9 +24,9 @@ class PostForm(forms.ModelForm):
             'pub_date': forms.DateTimeInput(
                 attrs={
                     'type': 'datetime-local',
-                    'class': 'form-control'  # Добавляем класс для единообразия
+                    'class': 'form-control'
                 },
-                format='%Y-%m-%dT%H:%M'  # Формат для datetime-local
+                format='%Y-%m-%dT%H:%M'
             ),
             'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
